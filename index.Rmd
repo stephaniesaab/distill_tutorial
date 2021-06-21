@@ -1,14 +1,20 @@
 ---
-title: "Kane's Data science bootcamp: gitStephanie's Final Project"
+title: "Kane's Data science bootcamp: Stephanie's Final Project"
 description: |
   "This is where I will describe my final project"
 site: distill::distill_website
 ---
+```{r}
 
-```{r setup, include=FALSE}
+```
+
+```{r setup, include=FALSE, layout="1-body-outset"}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(ggthemes)
+library(knitr)
+library(rmarkdown)
+library(gt)
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
@@ -18,13 +24,31 @@ library(ggthemes)
 ```
 
 ```{r car-plot}
-mtcars %>% 
-select(mpg,wt) %>% 
-ggplot(aes(wt,mpg))+
-geom_point()+
-geom_smooth(method="lm",formula=y~x,se=F)+
-theme_clean()+
-labs(title="Fuel Efficiency and Weight", subtitle = "Heavier cars are less fuel efficient",x="Weight (1000s of lbs)", y="MPG", caption="Henderson and Vellerman (1981)")
+car_plot<-read_rds("car_plot.rds")
+ggsave("car_plot.png",car_plot)
+```
 
+```{r table-1}
+table<-mtcars %>% 
+arrange(mpg)
+```
+
+```{r table-2, layout="1-body-outset"}
+kable(table)
+```
+
+```{r table-3, layout="1-body-outset"}
+paged_table(table,options(cols.print=12))
+```
+
+```{r table-4}
+gt(table, rownames_to_stub=TRUE) %>% 
+  tab_header(title=md("**1974 Automobiles**"), subtitle="The least fuel efficient cars are the heaviest") %>% 
+  tab_source_note("Source Henderson and Vellerman (1981)") %>% 
+  tab_spanner(label="Variable Group 1", columns=c(mpg,cyl,disp,hp,drat))
+```
+
+```{r image}
+include_graphics("images/car_plot.png")
 ```
 
