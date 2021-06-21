@@ -5,16 +5,16 @@
       "title": "About this site",
       "description": "Some additional details about the website",
       "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-21T13:38:53-04:00"
+      "contents": "\r\nAbout Me\r\nHello! My name is Stephanie Saab and I’m an incoming first-year student at the University of Toronto. I love to play basketball and the piano.\r\nAbout the Project\r\nThis is my final project for Kane’s Data science bootcamp. These boots were made for shopping is a plot comparing shoe prices for men and women.\r\nGoals\r\nExplore the variation in prices of women’s and men’s shoes\r\nThese were collected from two datasets\r\n\r\nExplore the different spending habits of women and men in regards to shoes\r\nThis sample only includes 10000 shoe purchases in the U.S.\r\n“This is data science”\r\n~Preceptor\r\n“Kane’s Free High School Data Science Bootcamp”\r\n\r\n",
+      "last_modified": "2021-06-21T14:26:45-04:00"
     },
     {
       "path": "index.html",
-      "title": "Kane's Datascience bootcamp: gitStephanie's Final Project",
+      "title": "Kane's Data science bootcamp: gitStephanie's Final Project",
       "description": "\"This is where I will describe my final project\"\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-21T13:38:59-04:00"
+      "last_modified": "2021-06-21T14:26:54-04:00"
     }
   ],
   "collections": []

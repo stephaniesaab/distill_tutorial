@@ -8,3 +8,20 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## About Me
+Hello! My name is **Stephanie Saab** and I'm an incoming first-year student at the University of Toronto. I love to play basketball and the piano. 
+
+
+## About the Project
+This is my final project for Kane's Data science bootcamp. *These boots were made for shopping* is a plot comparing shoe prices for men and women.
+
+### Goals
+* Explore the variation in prices of women's and men's shoes 
+  + These were collected from two datasets
+* Explore the different spending habits of women and men in regards to shoes
+  + This sample only includes 10000 shoe purchases in the U.S.
+  
+  “This is data science"  
+  ~Preceptor
+  
+  [“Kane’s Free High School Data Science Bootcamp"](https://bootcamp.davidkane.info/)
