@@ -1,0 +1,71 @@
+---
+title: "Shoes"
+author: "Stephanie Saab"
+date: "21/06/2021"
+output: html_document
+---
+
+```{r setup, echo=F,include=F}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggthemes)
+library(httr)
+library(distill)
+library(lubridate)
+library(dbplyr)
+library(skimr)
+library(gganimate)
+library(ggplot2)
+
+#x<-read_csv("archive.zip") #male shoes
+#y<-read_csv("7210_1.csv.zip") #female shoes
+x <-read_csv("archive.zip")%>% 
+  select(dateadded,prices_amountmin,prices_amountmax,prices_currency,prices_issale) %>% 
+  mutate(gender="men") %>% 
+  mutate(dateadded=as.Date(dateadded)) %>% 
+  mutate(
+         prices_amountmin=as.numeric(prices_amountmin),
+         prices_amountmax=as.numeric(prices_amountmax)) %>%
+  mutate(prices_issale=as.logical(prices_issale)) %>% 
+  drop_na()
+
+y <- read_csv("7210_1.csv.zip")%>% 
+  select(dateAdded,prices.amountMin,prices.amountMax,prices.currency,prices.isSale) %>% 
+  mutate(gender="women") %>% 
+  rename(prices_amountmin="prices.amountMin",prices_amountmax="prices.amountMax",prices_currency="prices.currency",prices_issale="prices.isSale") %>% 
+  drop_na() %>% 
+  mutate(dateadded=as.Date(dateAdded)) %>% 
+  select(-dateAdded) %>% 
+  drop_na()
+
+shoes2<-full_join(x,y,by=c("dateadded", "prices_amountmin", "prices_amountmax", "prices_currency", "prices_issale", "gender"),copy=FALSE)
+shoes3<-shoes2 %>% 
+  mutate(price_avg=rowMeans(shoes2[c(2,3)],na.rm=T)) %>% 
+  mutate(price_avg=round(price_avg,2)) %>%
+  #select(-prices_amountmax,-prices_amountmin) %>% 
+  filter(prices_currency=="USD") %>% 
+  arrange(price_avg) %>% 
+  filter(price_avg<=1500) %>% 
+  select(-prices_currency)
+shoes3$yearadded <- format(as.Date(shoes3$dateadded, format="%d/%m/%Y"),"%Y")
+```
+
+
+```{r graph, echo=F,include=T}
+shoes3 %>%
+  ggplot(mapping=aes(x=dateadded,y=price_avg,color=prices_issale))+
+  geom_point(alpha=0.5)+
+  facet_wrap(~gender)
+```
+
+
+```{r graph2, echo=F,include=T}
+shoes3 %>% 
+  ggplot(mapping=aes(x=dateadded,y=price_avg,ymin=prices_amountmin,ymax=prices_amountmax,color=prices_issale))+
+  geom_pointrange(alpha=0.5,width=0.2,size=1)+
+  facet_wrap(~prices_issale)
+#geom_pointrange(data=d, mapping=aes(x=drink, y=mean, ymin=upper, ymax=lower), width=0.2, size=1, color="blue", fill="white", shape=22)
+```
+
+
+
